@@ -1,24 +1,24 @@
 ## lua-pam
-A module for lua  to use PAM.
+A module for lua  to use PAM. Fork from https://github.com/RMTT/lua-pam. 
+_Fixed version to compile with different versions of Lua._
+
+Also contain ebuild for Gentoo.
 
 ## Complile
 ```shell
-cmake . -B build
+cmake . -B build -DLUA=lua5.3
 cd build
 make
 ```
+Availible values for LUA variable: `lua5.2`, `lua5.3`(default), `lua5.4`, `luajit`. To compile with `luajit`, you need to compile `luajit` in `lua53compat`
 
-## Installation through package manager
+## Installation 
 
-### Arch Linux
-
-The package [`lua-pam-git`](https://aur.archlinux.org/packages/lua-pam-git/) can be installed from the Arch Linux User Repository using the following command. The command assumes your package manager is `yay`.
-
-```
-yay -S lua-pam-git
+```shell
+make install
 ```
 
-The file `liblua_pam.so` is installed into `/usr/lib/lua-pam/`.
+The file `liblua_pam.so` is installed into `/usr/lib64/lua/{LUA_VERSION}`.
 
 ## Usage
 ```lua
@@ -34,9 +34,8 @@ end
 ```
 
 ## Troubleshooting
-#### cannot find `lua.hpp`
-Firstly,make sure the `lua.hpp` exists on your machine,and then create a soft link to the `/usr/include` directory,also,you can change the `CMakeLists.txt` to include your own directory which contains `lua.hpp`
-#### cannot find `liblua.so`
+#### cannot find `lua.hpp` or `liblua.so`
 Make sure the file exists on your machine,it's need install some package on some distros,such as Debian/Ubuntu,you should install `liblua-dev`
+
 #### cannot find `pam_appl.hpp` on Ubuntu/Debian
 Install `libpam0g-dev`
